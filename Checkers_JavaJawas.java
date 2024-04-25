@@ -20,8 +20,8 @@
 //TODO: ^^^ Remove the comments above ^^^
 
 
-//TODO << YOUR TEAM NAME HERE >>
-    //TODO << YOUR TEAM MEMBERS HERE >>
+//JavaJawas>>
+//<<Samuel Ralph, Max Dávila, Hugo Cordova>>
 
 
     import java.util.Scanner;
@@ -92,9 +92,13 @@
                     System.out.println("Black's turn");
                 }
     
-                System.out.print("Enter move (row1 col1 row2 col2): ");
-                int row1 = scanner.nextInt();
-                int col1 = scanner.nextInt();
+                System.out.println("Select piece row: ");
+                int PieceRow = scanner.nextInt();
+                
+                System.out.println("Select piece location: "); 
+                int PieceLocation = scanner.nextInt();
+
+
                 int row2 = scanner.nextInt();
                 int col2 = scanner.nextInt();
     
