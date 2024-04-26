@@ -23,6 +23,50 @@
 //TODO << YOUR TEAM NAME HERE >>
     //TODO << YOUR TEAM MEMBERS HERE >>
 
+//Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play Checkers against local players and AI
+//Sam task is to do the UI for the board and the AI for the game, also do the debugging.
+//Hugo Task is to do all the features in the game.
+//Max (Team Leader): task to do the basic logic, commenting and help all around the team.
+
+/*
+
+Title 
+
+***************************
+*         Checkers        *
+***************************
+
+Concept 
+
+This program provide a fun game that is 
+created to be enjoyed that is Checkers,
+where you vs a player or a AI can play
+and win but also lose or draw
+
+Board
+
+ public static void initializeBoard() {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((i + j) % 2 != 0) {
+                        if (i < 3) {
+                            board[i][j] = RED;
+                        } else if (i > 4) {
+                            board[i][j] = BLACK;
+                        } else {
+                            board[i][j] = EMPTY;
+                        }
+                    } else {
+                        board[i][j] = EMPTY;
+                    }
+                }
+            }
+        }
+
+
+
+ */
+
 
     import java.util.Scanner;
 
@@ -111,19 +155,62 @@
     
         
         public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int optiontoChosePLayer = 0;
     
             //TODO: ADJUST TEMPLATE CODE HERE
+
+            System.out.println("");
     
-            System.out.println("------------CHECKERS----------");
+            print("\n***************************");
+            print("*         Checkers        *");
+            print("***************************");
+            
     
-            //Initial set up
-    
-            initializeBoard();
-    
-            //Start the game
-            playGame();
-    
+            System.out.println("\nThis game is made to play Checkers");
+            System.out.println("where player can move their checks");
+            System.out.println("with the numbers on the side in where");
+            System.out.println("P is the checks and with that the game");
+            System.out.println("Starts!!!!");
+
+            //Menu of selections of gamemodes 
+            println("\n-------- Menu -------");
+            println("1. Versus a local player");
+            println("2. Versus an AI machine");
+            println("3. Quit");
+
+            //Let the user decide the option
+            println("Please choose an option:");
+            optiontoChosePLayer = in.nextInt();
+
+             //Vs a local player
+             if (optiontoChosePLayer == 1) {
+
+                //Option 1: Local player
+                println("\nYou chose to play against a local player");
+            
+                //Initial set up
+        
+                initializeBoard();
+        
+                //Start the game
+                playGame();
+
+                
+             }
+        
            
         }
+
+         //Shortcut to use print
+         public static void print (String msg){
+            System.out.print(msg);
+        }
+
+        //Shortcut to use println
+        public static void println (String msg){
+            System.out.println(msg);
+        }
+
     }
     
