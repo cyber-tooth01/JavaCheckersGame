@@ -1,9 +1,9 @@
-=======
+
 //Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play tic-tac-toe against local players
 //Sam asssited int the UI and AI
 //Hugo took care of all the features except AI and assisted with game logic
 //Max wrote win conditions and game logic
->>>>>>> hugo
+
 
 /*
 
