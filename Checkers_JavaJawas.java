@@ -182,8 +182,8 @@ public class Checkers_JavaJawas {
     
         public static boolean isValidMove(int row1, int col1, int row2, int col2) {
             // Check if its within the board bounds
-            if (row1 < 0 || row1 >= 8 || col1 < 0 || col1 >= 8 ||
-                row2 < 0 || row2 >= 8 || col2 < 0 || col2 >= 8) {
+            if (row1 <= 0 || row1 >= 7 || col1 <= 0 || col1 >= 7 ||
+                row2 <= 0 || row2 >= 7 || col2 <= 0 || col2 >= 7) {
                 
                     return false;
             }
