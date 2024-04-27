@@ -1,7 +1,9 @@
+=======
 //Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play tic-tac-toe against local players
 //Sam asssited int the UI and AI
 //Hugo took care of all the features except AI and assisted with game logic
 //Max wrote win conditions and game logic
+>>>>>>> hugo
 
 /*
 
@@ -200,9 +202,13 @@ public class Checkers_JavaJawas {
                     System.out.println("Black's turn");
                 }
     
-                System.out.print("Enter move (row1 col1 row2 col2): ");
-                int row1 = scanner.nextInt();
-                int col1 = scanner.nextInt();
+                System.out.println("Select piece row: ");
+                int PieceRow = scanner.nextInt();
+                
+                System.out.println("Select piece location: "); 
+                int PieceLocation = scanner.nextInt();
+
+
                 int row2 = scanner.nextInt();
                 int col2 = scanner.nextInt();
     
