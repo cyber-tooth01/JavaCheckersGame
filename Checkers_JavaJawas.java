@@ -50,13 +50,13 @@ public class Checkers_JavaJawas {
         //Title to the game
         try {
             Thread.sleep(150);
-            System.out.println("_______          |          _______ |                               ");
+            System.out.println("_______           |          _______ |                     |       ");
             Thread.sleep(150);
-            System.out.println("|         __   ____|  ____  |         |_____   ____   ____          ");
+            System.out.println("|         __   ____|  ____  |         |_____   ____   ____  | /    ");
             Thread.sleep(150);
-            System.out.println("|        /  \\  |   | |___|  |         |    |  |___|  |             ");
+            System.out.println("|        /  \\  |   | |___|  |         |    |  |___|  |      |/       ");
             Thread.sleep(150);
-            System.out.println("|_______ \\__/  |___| |___   |_______  |    |  |___   |____         ");
+            System.out.println("|_______ \\__/  |___| |___   |_______  |    |  |___   |____  |  \\    ");
             Thread.sleep(150);
         } catch (InterruptedException e) {
             e.printStackTrace();
