@@ -21,7 +21,7 @@ and win but also lose
 
  */
 
-    import java.util.Scanner;
+import java.util.Scanner;
 
     
 
@@ -51,13 +51,13 @@ public class Checkers_JavaJawas {
         //Title to the game
         try {
             Thread.sleep(150);
-            System.out.println("_______          |          _______ |                               ");
+            System.out.println("_______            |         _______  |                     |       ");
             Thread.sleep(150);
-            System.out.println("|         __   ____|  ____  |         |_____   ____   ____          ");
+            System.out.println("|         __   ____|  ____  |         |_____   ____   ____  | /    ");
             Thread.sleep(150);
-            System.out.println("|        /  \\  |   | |___|  |         |    |  |___|  |             ");
+            System.out.println("|        /  \\  |   | |___|  |         |    |  |___|  |      |/       ");
             Thread.sleep(150);
-            System.out.println("|_______ \\__/  |___| |___   |_______  |    |  |___   |____         ");
+            System.out.println("|_______ \\__/  |___| |___   |_______  |    |  |___   |____  |  \\    ");
             Thread.sleep(150);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -166,7 +166,7 @@ public class Checkers_JavaJawas {
     
             System.out.println("\n");
     
-            System.out.println("----- YOUR BOARD HERE-----");
+            System.out.println("----- Code Check-----");
     
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -175,14 +175,63 @@ public class Checkers_JavaJawas {
                 System.out.println();
             }
         }
-    
-        public static boolean isValidMove(int row1, int col1, int row2, int col2) {
-            //TODO: YOUR CODE HERE
-            return true;
+
+        public static void switchTurn() {
+            isRedTurn = !isRedTurn;
         }
     
+        public static boolean isValidMove(int row1, int col1, int row2, int col2) {
+            // Check if its within the board bounds
+            if (row1 <= 0 || row1 >= 7 || col1 <= 0 || col1 >= 7 ||
+                row2 <= 0 || row2 >= 7 || col2 <= 0 || col2 >= 7) {
+                
+                    return false;
+            }
+
+            // Check if its empty
+            if (board[row2][col2] != EMPTY) {
+                return false;
+            }
+
+            // Check if the piece is moving diagonally
+            if (isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != 1) {
+                return false;
+            }
+
+            if (!isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != -1) {
+                return false;
+            }
+
+            // Check if the piece is moving in the correct direction based on the player's turn
+            if (isRedTurn && board[row1][col1] != RED ||
+                !isRedTurn && board[row1][col1] != BLACK) {
+                return false;
+            }
+
+            // Check if the piece is moving to an adjacent empty position (for simplicity, without capturing)
+            return true;
+                    
+            }
+        // public static CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
+        //     //TODO: YOUR CODE HERE
+        //     return true;
+        // }
+    
         public static void makeMove(int row1, int col1, int row2, int col2) {
-            //TODO: YOUR CODE HERE
+            // Check if the move is valid
+            if (!isValidMove(row1, col1, row2, col2)) {
+                System.out.println("Invalid move, try again.");
+            return;
+            }
+
+            // Perform the move
+            char piece = board[row1][col1];
+            board[row1][col1] = EMPTY;
+            board[row2][col2] = piece;
+
+            // Switch turn
+            switchTurn();
+            
         }
     
         public static void playGame(){
@@ -200,17 +249,22 @@ public class Checkers_JavaJawas {
                 } else {
                     System.out.println("Black's turn");
                 }
-    
-                System.out.println("Select piece row: ");
-                int PieceRow = scanner.nextInt();
+
+                System.out.println("Select X coordinate of the piece you want to move (0-7): ");
+                int row1 = scanner.nextInt();
                 
-                System.out.println("Select piece location: "); 
-                int PieceLocation = scanner.nextInt();
-
-
-                int row2 = scanner.nextInt();
-                int col2 = scanner.nextInt();
+                System.out.println("Select Y coordinate of the piece you want to move (0-7): "); 
+                int col1 = scanner.nextInt();
     
+                System.out.println("Select X coordinate of where you want to move (0-7): ");
+                int row2 = scanner.nextInt();
+                
+                System.out.println("Select Y coordinate of where you want to move (0-7): "); 
+                int col2 = scanner.nextInt();
+                
+                
+
+                
                 if (isValidMove(row1, col1, row2, col2)) {
     
                     makeMove(row1, col1, row2, col2);
