@@ -166,7 +166,7 @@ public class Checkers_JavaJawas {
     
             System.out.println("\n");
     
-            System.out.println("----- YOUR BOARD HERE-----");
+            System.out.println("----- Code Check-----");
     
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
