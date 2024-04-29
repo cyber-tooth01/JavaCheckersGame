@@ -193,12 +193,17 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
-            // Check if the piece is moving diagonally
-            if (isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != 1) {
+            // Check if the piece is moving diagonally or capturing
+            if (isRedTurn && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != 1) || ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != 2 && (row2 - 1) != EMPTY || (row2 + 1) != EMPTY && (col2 - 1) != EMPTY)) {
                 return false;
             }
 
-            if (!isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != -1) {
+            if (!isRedTurn && (row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1) {
+                return false;
+            }
+
+            //Check for Capture
+            if (isRedTurn && (row2 - row1) != 2 && (row2 - row1) != -2 || (col2 - col1) != -2) {
                 return false;
             }
 
