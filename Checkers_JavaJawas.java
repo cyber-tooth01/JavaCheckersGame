@@ -194,13 +194,11 @@ public class Checkers_JavaJawas {
             }
 
             //Check if the piece is moving diagonally or capturing
-            if (isRedTurn == true && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1)){ 
-            //|| ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != 2 && (row2 - 1) != EMPTY || (row2 + 1) != EMPTY && (col2 - 1) != EMPTY)) {
+            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1)){ 
                 return false;
             }
 
             if (isRedTurn == false && ((col2 - col1) != 1 || (col2 - col1) != -1) && (row2 - row1) != -1){
-            //|| ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2 && (row2 - 1) != EMPTY || (row2 + 1) != EMPTY && (col2 + 1) != EMPTY)) {
                 return false;
             }
 
@@ -216,10 +214,19 @@ public class Checkers_JavaJawas {
                 return true;
             }    
             }
-        // public static CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
-        //     //TODO: YOUR CODE HERE
-        //     return true;
-        // }
+        public static boolean CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
+            
+            //Check if player is capturing
+            if (isRedTurn == true && ((row2 - row1) == BLACK) && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
+                
+                    return false;
+                }
+            if (isRedTurn == false && ((row2 - row1) == RED) && ((col2 - col1) != 2 || (col2 - col1) != -2) && (row2 - row1) != -2){
+                    return false;
+                }
+
+            return true;
+        }
     
         public static void makeMove(int row1, int col1, int row2, int col2) {
             // Check if the move is valid
