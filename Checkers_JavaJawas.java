@@ -93,7 +93,7 @@ public class Checkers_JavaJawas {
 
                 //Option 1: Local player
                 println("\nYou chose to play against a local player");
-                println("\nThe board in this game is on two axises, one x and one y.\nVertically, it goes from 0 to 2, and horizontally it goes 0 to 2.");
+                println("\nThe board in this game is on two axises, one x and one y.\nVertically, it goes from 0 to 7, and horizontally it goes 0 to 7.");
 
                 //Clear char array
                 initializeBoard();
@@ -182,10 +182,10 @@ public class Checkers_JavaJawas {
     
         public static boolean isValidMove(int row1, int col1, int row2, int col2) {
             // Check if its within the board bounds
-            if (row1 <= 0 || row1 >= 7 || col1 <= 0 || col1 >= 7 ||
-                row2 <= 0 || row2 >= 7 || col2 <= 0 || col2 >= 7) {
+            if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 ||
+                row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
                 
-                    return false;
+                return false;
             }
 
             // Check if its empty
@@ -193,14 +193,17 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
-            // Check if the piece is moving diagonally
-            if (isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != 1) {
+            //Check if the piece is moving diagonally or capturing
+            if (isRedTurn == true && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1)){ 
+            //|| ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != 2 && (row2 - 1) != EMPTY || (row2 + 1) != EMPTY && (col2 - 1) != EMPTY)) {
                 return false;
             }
 
-            if (!isRedTurn && (row2 - row1) != 1 && (row2 - row1) != -1 || (col2 - col1) != -1) {
+            if (isRedTurn == false && ((col2 - col1) != 1 || (col2 - col1) != -1) && (row2 - row1) != -1){
+            //|| ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2 && (row2 - 1) != EMPTY || (row2 + 1) != EMPTY && (col2 + 1) != EMPTY)) {
                 return false;
             }
+
 
             // Check if the piece is moving in the correct direction based on the player's turn
             if (isRedTurn && board[row1][col1] != RED ||
@@ -209,8 +212,9 @@ public class Checkers_JavaJawas {
             }
 
             // Check if the piece is moving to an adjacent empty position (for simplicity, without capturing)
-            return true;
-                    
+            else {
+                return true;
+            }    
             }
         // public static CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
         //     //TODO: YOUR CODE HERE
@@ -219,15 +223,20 @@ public class Checkers_JavaJawas {
     
         public static void makeMove(int row1, int col1, int row2, int col2) {
             // Check if the move is valid
-            if (!isValidMove(row1, col1, row2, col2)) {
+            if (isValidMove(row1, col1, row2, col2) == false) {
                 System.out.println("Invalid move, try again.");
             return;
             }
 
             // Perform the move
-            char piece = board[row1][col1];
             board[row1][col1] = EMPTY;
-            board[row2][col2] = piece;
+            if (isRedTurn){
+                board[row2][col2] = RED;
+            }
+            if (!isRedTurn){
+                board[row2][col2] = BLACK;
+            }
+        
 
             // Switch turn
             switchTurn();
@@ -251,16 +260,16 @@ public class Checkers_JavaJawas {
                 }
 
                 System.out.println("Select X coordinate of the piece you want to move (0-7): ");
-                int row1 = scanner.nextInt();
+                int col1 = scanner.nextInt();
                 
                 System.out.println("Select Y coordinate of the piece you want to move (0-7): "); 
-                int col1 = scanner.nextInt();
+                int row1 = scanner.nextInt();
     
                 System.out.println("Select X coordinate of where you want to move (0-7): ");
-                int row2 = scanner.nextInt();
+                int col2 = scanner.nextInt();
                 
                 System.out.println("Select Y coordinate of where you want to move (0-7): "); 
-                int col2 = scanner.nextInt();
+                int row2 = scanner.nextInt();
                 
                 
 
