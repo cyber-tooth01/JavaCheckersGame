@@ -162,17 +162,25 @@ public class Checkers_JavaJawas {
         }
     
         public static void printBoard() {
-            //TODO: YOUR CODE HERE
     
             System.out.println("\n");
     
             System.out.println("----- Code Check-----");
+
+            for(int j = 0; j < board[0].length; j++){
+                System.out.print(" " + j);
+            }
+            System.out.println();
     
             for (int i = 0; i < 8; i++) {
+                System.out.print(i + " ");
                 for (int j = 0; j < 8; j++) {
                     System.out.print(board[i][j] + " ");
                 }
                 System.out.println();
+
+
+
             }
         }
 
@@ -244,8 +252,6 @@ public class Checkers_JavaJawas {
         }
     
         public static void playGame(){
-    
-            //TODO: MODIFY TEMPLATE CODE
     
             Scanner scanner = new Scanner(System.in);
     
