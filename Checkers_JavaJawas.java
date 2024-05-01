@@ -2,7 +2,7 @@
 //Sam assisted int the UI and AI
 //Hugo took care of all the features except AI and assisted with game logic
 //Max wrote win conditions and game logic
-
+//Showing Ishmael how to merge and pull request 
 
 /*
 
