@@ -1,5 +1,5 @@
 //Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play tic-tac-toe against local players
-//Sam asssited int the UI and AI
+//Sam assisted int the UI and AI
 //Hugo took care of all the features except AI and assisted with game logic
 //Max wrote win conditions and game logic
 
@@ -29,8 +29,8 @@ import java.util.Scanner;
 public class Checkers_JavaJawas {
 
     //Requirements that help run the program
-    public static final String RED1 = "\u001B[31m";
-    public static final String BLUE = "\u001B[34m";
+    public static final String RED_Color = "\u001B[31m";
+    public static final String BLACK_Color = "\u001B[30m";
     public static final String reset = "\u001B[0m";
     
     public static int scoreX = 0;
@@ -64,7 +64,7 @@ public class Checkers_JavaJawas {
         }
 
         //Explain the program to the user
-        println("\nDeveloped by Samuel Ralph, Maximiliano Dávila, and Hugo Cordova");
+        println("\nDeveloped by Samuel Ralph, Dávila, and Hugo Cordova");
         println("\nAlso known as the JavaJawas");
         println("\nThis game is called CODE CHECK and its");
         println(" a checkers name. In this game ");
@@ -77,7 +77,7 @@ public class Checkers_JavaJawas {
             //Reset core game values
             initializeBoard();
 
-            //Menu of selections of gamemodes
+            //Menu of selections of game-modes
             println("\n-------- Menu -------");
             println("1. Versus a local player");
             println("2. Versus an AI machine");
@@ -93,7 +93,7 @@ public class Checkers_JavaJawas {
 
                 //Option 1: Local player
                 println("\nYou chose to play against a local player");
-                println("\nThe board in this game is on two axises, one x and one y.\nVertically, it goes from 0 to 7, and horizontally it goes 0 to 7.");
+                println("\nThe board in this game is on two axes, one x and one y.\nVertically, it goes from 0 to 7, and horizontally it goes 0 to 7.");
 
                 //Clear char array
                 initializeBoard();
@@ -167,15 +167,23 @@ public class Checkers_JavaJawas {
     
             System.out.println("----- Code Check-----");
 
-            for(int j = 0; j < board[0].length; j++){
-                System.out.print(" " + j);
+            System.out.print("  ");
+            for(int j = 0; j < 8; j++){
+                System.out.print(j + " ");
             }
             System.out.println();
     
             for (int i = 0; i < 8; i++) {
-                System.out.print(i + " ");
+                System.out.print(i + "|");
                 for (int j = 0; j < 8; j++) {
-                    System.out.print(board[i][j] + " ");
+                    if(board[i][j] == 'R'){
+                        System.out.print(RED_Color + board[i][j] + reset + " ");
+                    } else if (board[i][j] == 'B') {
+                        System.out.print(BLACK_Color + board[i][j] + reset + " ");
+                    }else{
+                        System.out.print(board[i][j] + " ");
+                    }
+
                 }
                 System.out.println();
 
@@ -268,7 +276,8 @@ public class Checkers_JavaJawas {
             while (true) {
     
                 printBoard();
-    
+                System.out.println("");
+
                 if (isRedTurn) {
                     System.out.println("Red's turn");
                 } else {
