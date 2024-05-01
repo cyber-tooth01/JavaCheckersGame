@@ -201,12 +201,16 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
+            //Check if its going backwards
+            // if (){
+
+            // }
             //Check if the piece is moving diagonally or capturing
-            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1)){ 
+            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != 1)){ 
                 return false;
             }
 
-            if (isRedTurn == false && ((col2 - col1) != 1 || (col2 - col1) != -1) && (row2 - row1) != -1){
+            if (isRedTurn == false && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1) && (col2 - col1) != -1){
                 return false;
             }
 
