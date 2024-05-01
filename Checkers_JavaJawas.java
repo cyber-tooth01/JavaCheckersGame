@@ -218,10 +218,13 @@ public class Checkers_JavaJawas {
             
             //Check if player is capturing
             if (isRedTurn == true && ((row2 - row1) == BLACK) && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
-                
+                    board[row2-1][col2-1] = EMPTY;
+                    board[row2+1][col2-1] = EMPTY;
                     return false;
                 }
             if (isRedTurn == false && ((row2 - row1) == RED) && ((col2 - col1) != 2 || (col2 - col1) != -2) && (row2 - row1) != -2){
+                    board[row2-1][col2-1] = EMPTY;
+                    board[row2+1][col2-1] = EMPTY;
                     return false;
                 }
 
