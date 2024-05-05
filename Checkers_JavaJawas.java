@@ -142,6 +142,9 @@ public class Checkers_JavaJawas {
         static final char BLACK = 'B';
         static char[][] board = new char[8][8];
         static boolean isRedTurn = true; // Red goes first
+        // Add this constant to represent a king
+        static final char RED_KING = 'K';
+        static final char BLACK_QUEEN = 'Q';
     
         public static void initializeBoard() {
             for (int i = 0; i < 8; i++) {
@@ -159,7 +162,9 @@ public class Checkers_JavaJawas {
                     }
                 }
             }
+        
         }
+        
     
         public static void printBoard() {
     
@@ -189,6 +194,19 @@ public class Checkers_JavaJawas {
 
 
 
+            }
+            // kings
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (board[i][j] == RED_KING) {
+                        System.out.print(RED_Color + RED_KING + reset + " ");
+                    } else if (board[i][j] == BLACK_QUEEN) {
+                        System.out.print(BLACK_Color + BLACK_QUEEN + reset + " ");
+                    } else {
+                        // Print regular pieces or empty spaces
+                    }                                                               
+                }
+                System.out.println();
             }
         }
 
@@ -223,8 +241,8 @@ public class Checkers_JavaJawas {
             }
 
              // Check if the piece is moving in the correct direction based on the player's turn
-            if (isRedTurn && (row2 - row1) != 1 ||
-                !isRedTurn && (row2 - row1) != -1) {
+            if (isRedTurn && board[row1][col1] == RED_KING && (row2 - row1) != 1 ||
+                !isRedTurn && board[row1][col1] == BLACK_QUEEN && (row2 - row1) != -1) {
                 return false;
             }
 
