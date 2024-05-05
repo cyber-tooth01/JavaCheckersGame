@@ -1,216 +1,421 @@
-/*  CSI Checkers 2024
-* Below you will find a template for creating your Checkers game.
-*
-* TO-DO comments:
-* Notice the "TO-DO" (without the '-') code comments, so that you may keep track of the code that is left to
-* be written. To see the list of TO-DO comments, go to View -> Tool Windows -> TO-DO.
-* Make sure to remove the TO-DO (without the '-') word when the code implementation in
-* that section of code has been completed
-*
-* The DEBUGGER is a powerful tool for troubleshooting your code, especially for logical errors. ]
-*    Use it while you can!
-*
-* Make sure to personalize this Checkers game app.
-*
-* Happy coding!!!
-*
-* Template provided by prof. Reynaldo Belfort, S.J.
-* */
+//Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play tic-tac-toe against local players
+//Sam assisted int the UI and AI
+//Hugo took care of all the features except AI and assisted with game logic
+//Max wrote win conditions and game logic
 
-//TODO: ^^^ Remove the comments above ^^^
-
-
-//TODO << YOUR TEAM NAME HERE >>
-    //TODO << YOUR TEAM MEMBERS HERE >>
-
-//Hugo Cordova, Samuel Ralph, Maximiliano Davila this program is made to play Checkers against local players and AI
-//Sam task is to do the UI for the board and the AI for the game, also do the debugging.
-//Hugo Task is to do all the features in the game.
-//Max (Team Leader): task to do the basic logic, commenting and help all around the team.
 
 /*
 
-Title 
+Title
 
 ***************************
-*         Checkers        *
+*        Checkers         *
 ***************************
 
-Concept 
+Concept
 
-This program provide a fun game that is 
+This program provide a fun game that is
 created to be enjoyed that is Checkers,
 where you vs a player or a AI can play
-and win but also lose or draw
-
-Board
-
- public static void initializeBoard() {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if ((i + j) % 2 != 0) {
-                        if (i < 3) {
-                            board[i][j] = RED;
-                        } else if (i > 4) {
-                            board[i][j] = BLACK;
-                        } else {
-                            board[i][j] = EMPTY;
-                        }
-                    } else {
-                        board[i][j] = EMPTY;
-                    }
-                }
-            }
-        }
-
-
+and win but also lose
 
  */
 
+ import java.util.ArrayList;
+ import java.util.Scanner;
 
-    import java.util.Scanner;
+    
 
-    public class Checkers_JavaJawas {
-    
-        static final char EMPTY = '-';
-        static final char RED = 'R';
-        static final char BLACK = 'B';
-        static char[][] board = new char[8][8];
-        static boolean isRedTurn = true; // Red goes first
-    
-        public static void initializeBoard() {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if ((i + j) % 2 != 0) {
-                        if (i < 3) {
-                            board[i][j] = RED;
-                        } else if (i > 4) {
-                            board[i][j] = BLACK;
-                        } else {
-                            board[i][j] = EMPTY;
-                        }
-                    } else {
-                        board[i][j] = EMPTY;
-                    }
-                }
-            }
-        }
-    
-        public static void printBoard() {
-            //TODO: YOUR CODE HERE
-    
-            System.out.println("\n");
-    
-            System.out.println("----- YOUR BOARD HERE-----");
-    
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    System.out.print(board[i][j] + " ");
-                }
-                System.out.println();
-            }
-        }
-    
-        public static boolean isValidMove(int row1, int col1, int row2, int col2) {
-            //TODO: YOUR CODE HERE
-            return true;
-        }
-    
-        public static void makeMove(int row1, int col1, int row2, int col2) {
-            //TODO: YOUR CODE HERE
-        }
-    
-        public static void playGame(){
-    
-            //TODO: MODIFY TEMPLATE CODE
-    
-            Scanner scanner = new Scanner(System.in);
-    
-            while (true) {
-    
-                printBoard();
-    
-                if (isRedTurn) {
-                    System.out.println("Red's turn");
-                } else {
-                    System.out.println("Black's turn");
-                }
-    
-                System.out.print("Enter move (row1 col1 row2 col2): ");
-                int row1 = scanner.nextInt();
-                int col1 = scanner.nextInt();
-                int row2 = scanner.nextInt();
-                int col2 = scanner.nextInt();
-    
-                if (isValidMove(row1, col1, row2, col2)) {
-    
-                    makeMove(row1, col1, row2, col2);
-                    
-    
-                } else {
-                    System.out.println("Invalid move, try again.");
-                }
-            }
-        }
-    
-        
-        public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int optiontoChosePLayer = 0;
-    
-            //TODO: ADJUST TEMPLATE CODE HERE
 
-            System.out.println("");
-    
-            print("\n***************************");
-            print("*         Checkers        *");
-            print("***************************");
-            
-    
-            System.out.println("\nThis game is made to play Checkers");
-            System.out.println("where player can move their checks");
-            System.out.println("with the numbers on the side in where");
-            System.out.println("P is the checks and with that the game");
-            System.out.println("Starts!!!!");
+ public class Checkers_JavaJawas {
 
-            //Menu of selections of gamemodes 
-            println("\n-------- Menu -------");
-            println("1. Versus a local player");
-            println("2. Versus an AI machine");
-            println("3. Quit");
+    // Declare the variables to store the last move's coordinates
+    static int prevRow1, prevCol1, prevRow2, prevCol2;
 
-            //Let the user decide the option
-            println("Please choose an option:");
-            optiontoChosePLayer = in.nextInt();
+     // List to store the game history
+    static ArrayList<String> gameHistory = new ArrayList<>();
 
+ 
+     //Requirements that help run the program
+     public static final String RED_Color = "\u001B[31m";
+     public static final String BLACK_Color = "\u001B[30m";
+     public static final String reset = "\u001B[0m";
+     
+     public static int scoreX = 0;
+     public static int scoreO = 0;
+ 
+     
+ 
+ 
+     public static void main(String[] args) {
+ 
+         //Declare the variables
+         Scanner in = new Scanner(System.in);
+         int optiontoChosePLayer = 0;
+
+ 
+         initializeBoard();
+ 
+ 
+         //Title to the game
+         try {
+             Thread.sleep(150);
+             System.out.println("_______            |         _______  |                     |       ");
+             Thread.sleep(150);
+             System.out.println("|         __   ____|  ____  |         |_____   ____   ____  | /    ");
+             Thread.sleep(150);
+             System.out.println("|        /  \\  |   | |___|  |         |    |  |___|  |      |/       ");
+             Thread.sleep(150);
+             System.out.println("|_______ \\__/  |___| |___   |_______  |    |  |___   |____  |  \\    ");
+             Thread.sleep(150);
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+ 
+         //Explain the program to the user
+         println("\nDeveloped by Samuel Ralph, Dávila, and Hugo Cordova");
+         println("\nAlso known as the JavaJawas");
+         println("\nThis game is called CODE CHECK and its");
+         println(" a checkers name. In this game ");
+         println("you play vs a player or an AI ");
+         println("where you can win but also lose");
+ 
+ 
+ 
+         while (true) {
+             //Reset core game values
+             initializeBoard();
+ 
+             //Menu of selections of game-modes
+             println("\n-------- Menu -------");
+             println("1. Versus a local player");
+             println("2. Versus an AI machine");
+             println("3. Quit");
+ 
+             //Let the user decide the option
+             println("Please choose an option:");
+             optiontoChosePLayer = in.nextInt();
+ 
+ 
              //Vs a local player
              if (optiontoChosePLayer == 1) {
-
-                //Option 1: Local player
-                println("\nYou chose to play against a local player");
-            
-                //Initial set up
-        
-                initializeBoard();
-        
-                //Start the game
-                playGame();
-
-                
+ 
+                 //Option 1: Local player
+                 println("\nYou chose to play against a local player");
+                 println("\nThe board in this game is on two axes, one x and one y.\nVertically, it goes from 0 to 7, and horizontally it goes 0 to 7.");
+ 
+                 //Clear char array
+                 initializeBoard();
+ 
+                 //Use non-AI game loop
+                 playGame();
+ 
+ 
+                 println(" ");
+ 
+ 
+ 
              }
-        
-           
-        }
+ 
+             //Vs an ai machine
+             if (optiontoChosePLayer == 2) {
+ 
+                 //Option 2: AI player
+                 print("\nYou chose to play against the computer");
+ 
+                 //Clear char array
+                 initializeBoard();
+ 
+                 //Use AI version of game loop
+                 playGameAI();
+ 
+ 
+                 println(" ");
+ 
+                 //Print scoreboard
+                 println("Wins for 'O' player: " + scoreO);
+                 println("Wins for 'X' player: " + scoreX);
+ 
+ 
+             }
+ 
+             if (optiontoChosePLayer == 3) {
+                 println("Have a nice day my friend");
+                 break;
+             }
+         }
+     }
+ 
+         static final char EMPTY = '-';
+         static final char RED = 'R';
+         static final char BLACK = 'B';
+         static char[][] board = new char[8][8];
+         static boolean isRedTurn = true; // Red goes first
+     
+         public static void initializeBoard() {
+             for (int i = 0; i < 8; i++) {
+                 for (int j = 0; j < 8; j++) {
+                     if ((i + j) % 2 != 0) {
+                         if (i < 3) {
+                             board[i][j] = RED;
+                         } else if (i > 4) {
+                             board[i][j] = BLACK;
+                         } else {
+                             board[i][j] = EMPTY;
+                         }
+                     } else {
+                         board[i][j] = EMPTY;
+                     }
+                 }
+             }
+         }
+     
+         public static void printBoard() {
+     
+             System.out.println("\n");
+     
+             System.out.println("----- Code Check-----");
+ 
+             System.out.print("  ");
+             for(int j = 0; j < 8; j++){
+                 System.out.print(j + " ");
+             }
+             System.out.println();
+     
+             for (int i = 0; i < 8; i++) {
+                 System.out.print(i + "|");
+                 for (int j = 0; j < 8; j++) {
+                     if(board[i][j] == 'R'){
+                         System.out.print(RED_Color + board[i][j] + reset + " ");
+                     } else if (board[i][j] == 'B') {
+                         System.out.print(BLACK_Color + board[i][j] + reset + " ");
+                     }else{
+                         System.out.print(board[i][j] + " ");
+                     }
+ 
+                 }
+                 System.out.println();
+ 
+ 
+ 
+             }
+         }
+ 
+         public static void switchTurn() {
+             isRedTurn = !isRedTurn;
+         }
+     
+         public static boolean isValidMove(int row1, int col1, int row2, int col2) {
+             // Check if its within the board bounds
+             if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 ||
+                 row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
+                 
+                 return false;
+             }
+ 
+             // Check if its empty
+             if (board[row2][col2] != EMPTY) {
+                 return false;
+             }
+ 
+             //Check if its going backwards
+             // if (){
+ 
+             // }
+             //Check if the piece is moving diagonally or capturing
+             if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != 1)){ 
+                 return false;
+             }
+ 
+             if (isRedTurn == false && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1) && (col2 - col1) != -1){
+                 return false;
+             }
+ 
+ 
+             // Check if the piece is moving in the correct direction based on the player's turn
+             if (isRedTurn && board[row1][col1] != RED ||
+                 !isRedTurn && board[row1][col1] != BLACK) {
+                 return false;
+             }
+ 
+             // Check if the piece is moving to an adjacent empty position (for simplicity, without capturing)
+             else {
+                 return true;
+             }    
+             }
+         public static boolean CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
+             
+             //Check if player is capturing
+             if (isRedTurn == true && ((row2 - row1) == BLACK)  && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
+                 
+                     return false;
+                 }
+             if (isRedTurn == false && ((row2 - row1) == RED) && ((col2 - col1) != 2 || (col2 - col1) != -2) && (row2 - row1) != -2){
+                     
+                     return false;
+                 }
+ 
+             return true;
+         }
+     
+         public static void makeMove(int row1, int col1, int row2, int col2) {
+             
+             int row3 = row2 + 1;
+             int row4 = row2 - 1;
+             int col3 = col2 - 1;
+             int col4 = col2 + 1;
+             // Check if the move is valid
+             if (isValidMove(row1, col1, row2, col2) == false) {
+                 System.out.println("Invalid move, try again.");
+             return;
+             }
+             if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == false) {
+                 System.out.println("Invalid move, try again.");    
+             return;
+             }
+             if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == true) {
+                 board[row4][col3] = EMPTY;
+                 board[row3][col3] = EMPTY;    
+             return;
+             }
+             if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == false) {
+                 board[row4][col4] = EMPTY;
+                 board[row3][col4] = EMPTY;    
+             return;
+             }
+ 
+ 
+             // Perform the move
+             board[row1][col1] = EMPTY;
+             if (isRedTurn){
+                 board[row2][col2] = RED;
+             }
+             if (!isRedTurn){
+                 board[row2][col2] = BLACK;
+             }
+         
+ 
+             // Switch turn
+             switchTurn();
+             
+         }
+     
+         public static void playGame(){
+     
+             Scanner scanner = new Scanner(System.in);
+     
+             while (true) {
+     
+                 printBoard();
+                 System.out.println("");
+ 
+                 if (isRedTurn) {
+                     System.out.println("Red's turn");
+                 } else {
+                     System.out.println("Black's turn");
+                 }
+ 
+                 System.out.println("Select X coordinate of the piece you want to move (0-7): ");
+                 int col1 = scanner.nextInt();
+                 
+                 System.out.println("Select Y coordinate of the piece you want to move (0-7): "); 
+                 int row1 = scanner.nextInt();
+     
+                 System.out.println("Select X coordinate of where you want to move (0-7): ");
+                 int col2 = scanner.nextInt();
+                 
+                 System.out.println("Select Y coordinate of where you want to move (0-7): "); 
+                 int row2 = scanner.nextInt();
+                 
+                 
+ 
+                 
+                 if (isValidMove(row1, col1, row2, col2)) {
+     
+                     makeMove(row1, col1, row2, col2);
+                     
+     
+                 } else {
+                     System.out.println("Invalid move, try again.");
+                 }
+             }
+         }
+         public static void playGameAI(){
+     
+             //TODO: MODIFY TEMPLATE CODE
+     
+             Scanner scanner = new Scanner(System.in);
+     
+             while (true) {
+     
+                 printBoard();
+     
+                 if (isRedTurn) {
+                     System.out.println("Red's turn");
+                 } else {
+                     System.out.println("Black's turn");
+                 }
+     
+                 System.out.print("Enter move (row1 col1 row2 col2): ");
+                 int row1 = scanner.nextInt();
+                 int col1 = scanner.nextInt();
+                 int row2 = scanner.nextInt();
+                 int col2 = scanner.nextInt();
+     
+                 if (isValidMove(row1, col1, row2, col2)) {
+     
+                     makeMove(row1, col1, row2, col2);
+                     
+     
+                 } else {
+                     System.out.println("Invalid move, try again.");
+                 }
+                }
+             }
 
-         //Shortcut to use print
-         public static void print (String msg){
-            System.out.print(msg);
+              // Method to highlight the last player's move on the board
+    public static void highlightLastMove(char[][] board) {
+        if (prevRow1 != -1 && prevCol1 != -1 && prevRow2 != -1 && prevCol2 != -1) {
+            board[prevRow1][prevCol1] = Character.toUpperCase(board[prevRow1][prevCol1]);
+            board[prevRow2][prevCol2] = Character.toUpperCase(board[prevRow2][prevCol2]);
         }
+    
+        //highlightLastMove(tempBoard); // Highlight the last move
 
-        //Shortcut to use println
-        public static void println (String msg){
-            System.out.println(msg);
-        }
-
+         // Method to add a move to the game history
+        public static void addToGameHistory(int row1, int col1, int row2, int col2) {
+        String move = "(" + row1 + "," + col1 + ") to (" + row2 + "," + col2 + ")";
+        gameHistory.add(move);
     }
+
+    // Method to show the game history
+    public static void showGameHistory() {
+        System.out.println("\nGame History:");
+        for (int i = 0; i < gameHistory.size(); i++) {
+            System.out.println((i + 1) + ". " + gameHistory.get(i));
+        }
+    }}}
+}
+
+
+
+
+
+             
+
+             
+         
+         public static void print (String msg){
+             System.out.print(msg);
+         }
+     
+         //Shortcut to use println
+         public static void println (String msg){
+             System.out.println(msg);
+         }
+
+         
+     
+         
+     
     
