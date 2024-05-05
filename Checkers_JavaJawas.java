@@ -211,16 +211,22 @@ public class Checkers_JavaJawas {
 
     
 
-            // }
-            //Check if the piece is moving diagonally in the right direction
-            if ((isRedTurn == true  && ((col2 - col1) != -1 || (col2 - col1) != 1)) || (isRedTurn == true && (row2 - row1) != 1)){ 
+            
+            // Check if the piece is moving diagonally in the right direction
+            if ((isRedTurn && Math.abs(col2 - col1) != 1) || (!isRedTurn && Math.abs(col2 - col1) != 1)) {
                 return false;
             }
 
-            if ((isRedTurn == false  && ((col2 - col1) != 1 || (col2 - col1) != -1)) && (isRedTurn == false && (row2 - row1) != -1)){
+            // Check if the piece is moving in the correct direction based on the player's turn
+            if (isRedTurn && board[row1][col1] != RED || !isRedTurn && board[row1][col1] != BLACK) {
                 return false;
             }
 
+             // Check if the piece is moving in the correct direction based on the player's turn
+            if (isRedTurn && (row2 - row1) != 1 ||
+                !isRedTurn && (row2 - row1) != -1) {
+                return false;
+            }
 
             // Check if the piece is moving in the correct direction based on the player's turn
             if (isRedTurn && board[row1][col1] != RED ||
