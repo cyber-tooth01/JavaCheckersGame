@@ -32,8 +32,8 @@ and win but also lose
     // Declare the variables to store the last move's coordinates
     static int prevRow1, prevCol1, prevRow2, prevCol2;
 
-     // List to store the game history
-    static ArrayList<String> gameHistory = new ArrayList<>();
+     // List to store the history of all games played
+    static ArrayList<ArrayList<String>> gameHistory = new ArrayList<>();
 
  
      //Requirements that help run the program
@@ -379,23 +379,32 @@ and win but also lose
             board[prevRow1][prevCol1] = Character.toUpperCase(board[prevRow1][prevCol1]);
             board[prevRow2][prevCol2] = Character.toUpperCase(board[prevRow2][prevCol2]);
         }
+        
+    }
     
         //highlightLastMove(tempBoard); // Highlight the last move
 
-         // Method to add a move to the game history
-        public static void addToGameHistory(int row1, int col1, int row2, int col2) {
+      // Method to add a move to the game history
+    public static void addToGameHistory(int row1, int col1, int row2, int col2) {
         String move = "(" + row1 + "," + col1 + ") to (" + row2 + "," + col2 + ")";
-        gameHistory.add(move);
+        gameHistory.get(gameHistory.size() - 1).add(move);
     }
 
-    // Method to show the game history
+    // Method to show the game history at the end of the game
     public static void showGameHistory() {
+        ArrayList<String> currentGameHistory = gameHistory.get(gameHistory.size() - 1);
         System.out.println("\nGame History:");
-        for (int i = 0; i < gameHistory.size(); i++) {
-            System.out.println((i + 1) + ". " + gameHistory.get(i));
+        for (int i = 0; i < currentGameHistory.size(); i++) {
+            System.out.println((i + 1) + ". " + currentGameHistory.get(i));
         }
-    }}}
-}
+    }
+
+    // Method to store the history of all games played
+    public static void storeGameHistory() {
+        gameHistory.add(new ArrayList<>());
+    }
+
+
 
 
 
@@ -413,6 +422,7 @@ and win but also lose
          public static void println (String msg){
              System.out.println(msg);
          }
+        }
 
          
      
