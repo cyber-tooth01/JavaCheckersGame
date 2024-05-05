@@ -209,12 +209,16 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
+            //Check if its going backwards
+            // if (){
+
+            // }
             //Check if the piece is moving diagonally or capturing
-            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != -1)){ 
+            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != 1)){ 
                 return false;
             }
 
-            if (isRedTurn == false && ((col2 - col1) != 1 || (col2 - col1) != -1) && (row2 - row1) != -1){
+            if (isRedTurn == false && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1) && (col2 - col1) != -1){
                 return false;
             }
 
@@ -233,14 +237,12 @@ public class Checkers_JavaJawas {
         public static boolean CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
             
             //Check if player is capturing
-            if (isRedTurn == true && ((row2 - row1) == BLACK) && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
-                    board[row2-1][col2-1] = EMPTY;
-                    board[row2+1][col2-1] = EMPTY;
+            if (isRedTurn == true && ((row2 - row1) == BLACK)  && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
+                
                     return false;
                 }
             if (isRedTurn == false && ((row2 - row1) == RED) && ((col2 - col1) != 2 || (col2 - col1) != -2) && (row2 - row1) != -2){
-                    board[row2-1][col2-1] = EMPTY;
-                    board[row2+1][col2-1] = EMPTY;
+                    
                     return false;
                 }
 
@@ -248,11 +250,31 @@ public class Checkers_JavaJawas {
         }
     
         public static void makeMove(int row1, int col1, int row2, int col2) {
+            
+            int row3 = row2 + 1;
+            int row4 = row2 - 1;
+            int col3 = col2 - 1;
+            int col4 = col2 + 1;
             // Check if the move is valid
             if (isValidMove(row1, col1, row2, col2) == false) {
                 System.out.println("Invalid move, try again.");
             return;
             }
+            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == false) {
+                System.out.println("Invalid move, try again.");    
+            return;
+            }
+            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == true) {
+                board[row4][col3] = EMPTY;
+                board[row3][col3] = EMPTY;    
+            return;
+            }
+            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == false) {
+                board[row4][col4] = EMPTY;
+                board[row3][col4] = EMPTY;    
+            return;
+            }
+
 
             // Perform the move
             board[row1][col1] = EMPTY;
