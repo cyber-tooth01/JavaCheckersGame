@@ -209,16 +209,15 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
-            //Check if its going backwards
-            // if (){
+    
 
             // }
-            //Check if the piece is moving diagonally or capturing
-            if (isRedTurn == true && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1 && (col2 - col1) != 1)){ 
+            //Check if the piece is moving diagonally in the right direction
+            if ((isRedTurn == true  && ((col2 - col1) != -1 || (col2 - col1) != 1)) || (isRedTurn == true && (row2 - row1) != 1)){ 
                 return false;
             }
 
-            if (isRedTurn == false && ((row2-row1) == EMPTY) && ((row2 - row1) != 1 || (row2 - row1) != -1) && (col2 - col1) != -1){
+            if ((isRedTurn == false  && ((col2 - col1) != 1 || (col2 - col1) != -1)) && (isRedTurn == false && (row2 - row1) != -1)){
                 return false;
             }
 
@@ -229,52 +228,33 @@ public class Checkers_JavaJawas {
                 return false;
             }
 
-            // Check if the piece is moving to an adjacent empty position (for simplicity, without capturing)
-            else {
+            // Check if there's an opponent's piece to capture
+            int midRow = (row1 + row2) / 2;
+            int midCol = (col1 + col2) / 2;
+            if (Math.abs(row2 - row1) == 2 && Math.abs(col2 - col1) == 2 &&
+                board[midRow][midCol] != EMPTY &&
+                (isRedTurn && board[midRow][midCol] == BLACK || !isRedTurn && board[midRow][midCol] == RED)) {
                 return true;
-            }    
             }
-        public static boolean CheckIfPlayerCanCapture (int row1, int col1, int row2, int col2) {
-            
-            //Check if player is capturing
-            if (isRedTurn == true && ((row2 - row1) == BLACK)  && ((row2 - row1) != 2 || (row2 - row1) != -2 && (col2 - col1) != -2)){ 
-                
-                    return false;
-                }
-            if (isRedTurn == false && ((row2 - row1) == RED) && ((col2 - col1) != 2 || (col2 - col1) != -2) && (row2 - row1) != -2){
-                    
-                    return false;
-                }
 
-            return true;
+            // Check if it's a regular move (no capture)
+            return Math.abs(row2 - row1) == 1 && Math.abs(col2 - col1) == 1;
+
+            
         }
+
+
+
+        
     
         public static void makeMove(int row1, int col1, int row2, int col2) {
             
-            int row3 = row2 + 1;
-            int row4 = row2 - 1;
-            int col3 = col2 - 1;
-            int col4 = col2 + 1;
+            
             // Check if the move is valid
             if (isValidMove(row1, col1, row2, col2) == false) {
                 System.out.println("Invalid move, try again.");
             return;
             }
-            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == false) {
-                System.out.println("Invalid move, try again.");    
-            return;
-            }
-            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == true) {
-                board[row4][col3] = EMPTY;
-                board[row3][col3] = EMPTY;    
-            return;
-            }
-            if (CheckIfPlayerCanCapture(row1, col1, row2, col2) == true && isRedTurn == false) {
-                board[row4][col4] = EMPTY;
-                board[row3][col4] = EMPTY;    
-            return;
-            }
-
 
             // Perform the move
             board[row1][col1] = EMPTY;
@@ -286,6 +266,13 @@ public class Checkers_JavaJawas {
             }
         
 
+            // Check for captures
+            int midRow = (row1 + row2) / 2;
+            int midCol = (col1 + col2) / 2;
+            if (Math.abs(row2 - row1) == 2 && Math.abs(col2 - col1) == 2) {
+                // Capture occurred, remove the opponent's piece
+                board[midRow][midCol] = EMPTY;
+            }
             // Switch turn
             switchTurn();
             
