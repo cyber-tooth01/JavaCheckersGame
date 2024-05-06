@@ -378,15 +378,12 @@ public class Checkers_JavaJawas {
                     System.out.println("Invalid move, try again.");
                 }
 
-                CheckForWin(board, isRedTurn);
-                if(CheckForWin == true){
-                    // The current player has no legal moves, so the opponent wins
-                    System.out.println("No legal moves left. ");
-                    if (isRedTurn == true){
-                        println("Red Wins");
-                    } else {
-                        println("Black Wins");
-                    }
+                // Check for other win conditions
+                if (!hasPieces(RED)) {
+                    System.out.println("Black wins by capturing all of Red's pieces!");
+                    break;
+                } else if (!hasPieces(BLACK)) {
+                    System.out.println("Red wins by capturing all of Black's pieces!");
                     break;
                 }
             }
@@ -424,69 +421,60 @@ public class Checkers_JavaJawas {
         gameHistory.add(new ArrayList<>());
     }
 
-        public static boolean CheckForWin(char[][] board, boolean isRedTurn){
-            // Iterate through the board to find the current player's pieces
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if ((isRedTurn && board[i][j] == RED) || (!isRedTurn && board[i][j] == BLACK)) {
-                        // Check for legal moves for the current piece
-                        for (int di = -1; di <= 1; di++) {
-                            for (int dj = -1; dj <= 1; dj++) {
-                                // Check if the move is valid
-                                if (isValidMove(i, j, i + di, j + dj)) {
-                                    return true; // At least one legal move is found
-                                }
-                            }
-                        }
-                    }
+    public static boolean hasPieces(char piece) {
+        // Check if there are any pieces of the specified type left on the board
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (board[row][col] == piece) {
+                    return true;
                 }
             }
-            // No legal moves found
-            return false;
         }
+        return false; // No pieces found
+    }
 
-        public static void playGameAI(){
+    public static void playGameAI(){
+
+        //TODO: MODIFY TEMPLATE CODE
     
-            //TODO: MODIFY TEMPLATE CODE
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
     
-            Scanner scanner = new Scanner(System.in);
+            printBoard();
     
-            while (true) {
+            if (isRedTurn) {
+                System.out.println("Red's turn");
+            } else {
+                System.out.println("Black's turn");
+            }
     
-                printBoard();
+            System.out.print("Enter move (row1 col1 row2 col2): ");
+            int row1 = scanner.nextInt();
+            int col1 = scanner.nextInt();
+            int row2 = scanner.nextInt();
+            int col2 = scanner.nextInt();
     
-                if (isRedTurn) {
-                    System.out.println("Red's turn");
-                } else {
-                    System.out.println("Black's turn");
-                }
+            if (isValidMove(row1, col1, row2, col2)) {
     
-                System.out.print("Enter move (row1 col1 row2 col2): ");
-                int row1 = scanner.nextInt();
-                int col1 = scanner.nextInt();
-                int row2 = scanner.nextInt();
-                int col2 = scanner.nextInt();
-    
-                if (isValidMove(row1, col1, row2, col2)) {
-    
-                    makeMove(row1, col1, row2, col2);
+                makeMove(row1, col1, row2, col2);
                     
     
-                } else {
+            } else {
                     System.out.println("Invalid move, try again.");
-                }
             }
         }
-        public static void print (String msg){
-            System.out.print(msg);
-        }
+    }
+    public static void print (String msg){
+        System.out.print(msg);
+    }
     
-        //Shortcut to use println
-        public static void println (String msg){
-            System.out.println(msg);
-        }
+    //Shortcut to use println
+    public static void println (String msg){
+        System.out.println(msg);
+    }
     
         
-    }
+}
 
     
