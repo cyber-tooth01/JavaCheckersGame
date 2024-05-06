@@ -268,10 +268,11 @@ public class Checkers_JavaJawas {
                     if (rowDiff == 2 && colDiff == 2) {
                         int midRow = (row1 + row2) / 2;
                         int midCol = (col1 + col2) / 2;
-                        // Check if there's an opponent's piece to capture
-                        return (isRedTurn && board[midRow][midCol] == BLACK) || (isRedTurn && board[midRow][midCol] == BLACK_QUEEN) || (!isRedTurn && board[midRow][midCol] == RED) || (!isRedTurn && board[midRow][midCol] == RED_KING);
+                        // Check if there's an opponent's piece or king to capture
+                        return (isRedTurn && (board[midRow][midCol] == BLACK || board[midRow][midCol] == BLACK_QUEEN)) || (!isRedTurn && (board[midRow][midCol] == RED || board[midRow][midCol] == RED_KING));
                     }
                     return false;
+
                 }
 
                 // Check if the piece belongs to the player
@@ -370,17 +371,19 @@ public class Checkers_JavaJawas {
                 if (isValidMove(row1, col1, row2, col2)) {
     
                     makeMove(row1, col1, row2, col2);
-                    
-    
+
+                    addToGameHistory(row1, col1, row2, col2);
                 } else {
                     System.out.println("Invalid move, try again.");
                 }
 
                 if(CheckForWin().equals("RedWinner")){
                     System.out.println("Congratulations Red! You won!");
+                    showGameHistory();
                     break;
-                } else if (CheckForWin().equals("BlackWInner")) {
+                } else if (CheckForWin().equals("BlackWinner")) {
                     System.out.println("Congratulations Black! You won!");
+                    showGameHistory();
                     break;
                 }
             }
