@@ -192,19 +192,6 @@ public class Checkers_JavaJawas {
 
 
             }
-            // kings
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (board[i][j] == RED_KING) {
-                        System.out.print(RED_Color + RED_KING + reset + " ");
-                    } else if (board[i][j] == BLACK_QUEEN) {
-                        System.out.print(BLACK_Color + BLACK_QUEEN + reset + " ");
-                    } else {
-                        // Print regular pieces or empty spaces
-                    }                                                               
-                }
-                System.out.println();
-            }
         }
 
         public static void switchTurn() {
@@ -212,55 +199,85 @@ public class Checkers_JavaJawas {
         }
     
         public static boolean isValidMove(int row1, int col1, int row2, int col2) {
-            // Check if its within the board bounds
-            if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 ||
-                row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
                 
-                return false;
-            }
+            if(board[row1][col1] == RED || board[row1][col1] == BLACK){    
+                // Check if its within the board bounds
+                if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 ||
+                    row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
+                    return false;
+                }
 
-            // Check if its empty
-            if (board[row2][col2] != EMPTY) {
-                return false;
-            }
+                // Check if the destination cell is empty
+                if (board[row2][col2] != EMPTY) {
+                    return false;
+                }
 
-    
+                // Check if the move is diagonal
+                int rowDiff = Math.abs(row2 - row1);
+                int colDiff = Math.abs(col2 - col1);
+                if (rowDiff != 1 || colDiff != 1) {
+                    // Check if it's a capture
+                    if (rowDiff == 2 && colDiff == 2) {
+                        int midRow = (row1 + row2) / 2;
+                        int midCol = (col1 + col2) / 2;
+                        // Check if there's an opponent's piece to capture
+                        if ((isRedTurn && board[midRow][midCol] != BLACK) || (!isRedTurn && board[midRow][midCol] != RED)) {
+                            return false;
+                        }
+                        return true;
+                    }
+                    return false;
+                }
 
+                // Check if the piece is moving in the correct direction based on the player's turn
+                if (isRedTurn && row2 <= row1 || !isRedTurn && row2 >= row1) {
+                    return false;
+                }
+
+                // Check if the piece belongs to the player
+                if (isRedTurn && board[row1][col1] != RED || !isRedTurn && board[row1][col1] != BLACK) {
+                    return false;
+                }
             
-            // Check if the piece is moving diagonally in the right direction
-            if ((isRedTurn && Math.abs(col2 - col1) != 1) || (!isRedTurn && Math.abs(col2 - col1) != 1)) {
-                return false;
-            }
+            }    
 
-            // Check if the piece is moving in the correct direction based on the player's turn
-            if (isRedTurn && board[row1][col1] != RED || !isRedTurn && board[row1][col1] != BLACK) {
-                return false;
-            }
+            if(board[row1][col1] == RED_KING || board[row1][col1] == BLACK_QUEEN){
+                
+                if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 || row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
+                    return false;
+                }
 
-             // Check if the piece is moving in the correct direction based on the player's turn
-            if (isRedTurn && board[row1][col1] == RED_KING && (row2 - row1) != 1 ||
-                !isRedTurn && board[row1][col1] == BLACK_QUEEN && (row2 - row1) != -1) {
-                return false;
-            }
+                // Check if the destination cell is empty
+                if (board[row2][col2] != EMPTY) {
+                    return false;
+                }
 
-            // Check if the piece is moving in the correct direction based on the player's turn
-            if (isRedTurn && board[row1][col1] != RED ||
-                !isRedTurn && board[row1][col1] != BLACK) {
-                return false;
-            }
+                // Check if the move is diagonal
+                int rowDiff = Math.abs(row2 - row1);
+                int colDiff = Math.abs(col2 - col1);
+                if (rowDiff != 1 || colDiff != 1) {
+                    // Check if it's a capture
+                    if (rowDiff == 2 && colDiff == 2) {
+                        int midRow = (row1 + row2) / 2;
+                        int midCol = (col1 + col2) / 2;
+                        // Check if there's an opponent's piece to capture
+                        if ((isRedTurn && board[midRow][midCol] == BLACK ) || (isRedTurn && board[midRow][midCol] == BLACK_QUEEN ) || (!isRedTurn && board[midRow][midCol] == RED) || (!isRedTurn && board[midRow][midCol] == RED_KING)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
+                }
 
-            // Check if there's an opponent's piece to capture
-            int midRow = (row1 + row2) / 2;
-            int midCol = (col1 + col2) / 2;
-            if (Math.abs(row2 - row1) == 2 && Math.abs(col2 - col1) == 2 &&
-                board[midRow][midCol] != EMPTY &&
-                (isRedTurn && board[midRow][midCol] == BLACK || !isRedTurn && board[midRow][midCol] == RED)) {
-                return true;
-            }
+                // Check if the piece belongs to the player
+                if (isRedTurn && board[row1][col1] != RED || !isRedTurn && board[row1][col1] != BLACK) {
+                    return false;
+                }
 
-            // Check if it's a regular move (no capture)
-            return Math.abs(row2 - row1) == 1 && Math.abs(col2 - col1) == 1;
+            }     
 
+            // Valid move
+            return true;
             
         }
 
@@ -278,14 +295,34 @@ public class Checkers_JavaJawas {
             }
 
             // Perform the move
-            board[row1][col1] = EMPTY;
-            if (isRedTurn){
-                board[row2][col2] = RED;
+            if(board[row1][col1] == RED || board[row1][col1] == BLACK){
+                board[row1][col1] = EMPTY;
+                if (isRedTurn){
+                    board[row2][col2] = RED;
+                }
+                if (!isRedTurn){
+                    board[row2][col2] = BLACK;
+                }
             }
-            if (!isRedTurn){
-                board[row2][col2] = BLACK;
+
+            if(board[row1][col1] == RED_KING || board[row1][col1] == BLACK_QUEEN){
+                board[row1][col1] = EMPTY;
+                if (isRedTurn){
+                    board[row2][col2] = RED_KING;
+                }
+                if (!isRedTurn){
+                    board[row2][col2] = BLACK_QUEEN;
+                }
             }
-        
+
+            
+
+            if (board[7][col2] == RED){
+                board[7][col2] = RED_KING;
+            }
+            if (board[0][col2] == BLACK){
+                board[0][col2] = BLACK_QUEEN;
+            }
 
             // Check for captures
             int midRow = (row1 + row2) / 2;
