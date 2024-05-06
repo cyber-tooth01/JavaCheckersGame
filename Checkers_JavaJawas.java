@@ -387,7 +387,7 @@ public class Checkers_JavaJawas {
                     break;
                 } else if (!hasPieces(BLACK)) {
                     System.out.println("Red wins by capturing all of Black's pieces!");
-                    showGameHistory()
+                    showGameHistory();
                     break;
                 }
             }
