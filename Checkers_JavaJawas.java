@@ -2,7 +2,7 @@
 //Sam assisted int the UI and AI
 //Hugo took care of all the features except AI and assisted with game logic
 //Max wrote win conditions and game logic
-
+//Showing Ishmael how to merge and pull request 
 
 /*
 
@@ -32,12 +32,16 @@ public class Checkers_JavaJawas {
     public static final String RED_Color = "\u001B[31m";
     public static final String BLACK_Color = "\u001B[30m";
     public static final String reset = "\u001B[0m";
-    
+    static final char EMPTY = '-';
+    static final char RED = 'R';
+    static final char BLACK = 'B';
+    static char[][] board = new char[8][8];
+    static boolean isRedTurn = true; // Red goes first
+    // Add this constant to represent a king
+    static final char RED_KING = 'K';
+    static final char BLACK_QUEEN = 'Q';
     public static int scoreX = 0;
     public static int scoreO = 0;
-
-    
-
 
     public static void main(String[] args) {
 
@@ -137,14 +141,7 @@ public class Checkers_JavaJawas {
         }
     }
 
-        static final char EMPTY = '-';
-        static final char RED = 'R';
-        static final char BLACK = 'B';
-        static char[][] board = new char[8][8];
-        static boolean isRedTurn = true; // Red goes first
-        // Add this constant to represent a king
-        static final char RED_KING = 'K';
-        static final char BLACK_QUEEN = 'Q';
+
     
         public static void initializeBoard() {
             for (int i = 0; i < 8; i++) {
@@ -377,7 +374,32 @@ public class Checkers_JavaJawas {
                 } else {
                     System.out.println("Invalid move, try again.");
                 }
+
+                if(CheckForWin().equals("RedWinner")){
+                    System.out.println("Congratulations Red! You won!");
+                    break;
+                } else if (CheckForWin().equals("BlackWInner")) {
+                    System.out.println("Congratulations Black! You won!");
+                    break;
+                }
             }
+
+        }
+
+        public static String CheckForWin(){
+            String RedWin = "RedWinner";
+            String BlackWin = "BlackWinner";
+
+            for (char[] chars : board) {
+                for (int secondNum = 0; secondNum < board.length; secondNum++) {
+                    if (chars[secondNum] != 'R') {
+                        return BlackWin;
+                    } else if (chars[secondNum] != 'B') {
+                        return RedWin;
+                    }
+                }
+            }
+            return null;
         }
         public static void playGameAI(){
     
