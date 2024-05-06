@@ -182,7 +182,11 @@ public class Checkers_JavaJawas {
                         System.out.print(RED_Color + board[i][j] + reset + " ");
                     } else if (board[i][j] == 'B') {
                         System.out.print(BLACK_Color + board[i][j] + reset + " ");
-                    }else{
+                    } else if (board[i][j] == 'Q') {
+                        System.out.println(BLACK_Color + board[i][j] + reset + " ");
+                    } else if (board[i][j] == 'K') {
+                        System.out.println(RED_Color + board[i][j] + reset + " ");
+                    } else{
                         System.out.print(board[i][j] + " ");
                     }
 
@@ -242,7 +246,7 @@ public class Checkers_JavaJawas {
             }    
 
             if(board[row1][col1] == RED_KING || board[row1][col1] == BLACK_QUEEN){
-                
+
                 if (row1 < 0 || row1 > 7 || col1 < 0 || col1 > 7 || row2 < 0 || row2 > 7 || col2 < 0 || col2 > 7) {
                     return false;
                 }
@@ -261,10 +265,7 @@ public class Checkers_JavaJawas {
                         int midRow = (row1 + row2) / 2;
                         int midCol = (col1 + col2) / 2;
                         // Check if there's an opponent's piece to capture
-                        if ((isRedTurn && board[midRow][midCol] == BLACK ) || (isRedTurn && board[midRow][midCol] == BLACK_QUEEN ) || (!isRedTurn && board[midRow][midCol] == RED) || (!isRedTurn && board[midRow][midCol] == RED_KING)) {
-                            return true;
-                        }
-                        return false;
+                        return (isRedTurn && board[midRow][midCol] == BLACK) || (isRedTurn && board[midRow][midCol] == BLACK_QUEEN) || (!isRedTurn && board[midRow][midCol] == RED) || (!isRedTurn && board[midRow][midCol] == RED_KING);
                     }
                     return false;
                 }
