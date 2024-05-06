@@ -47,6 +47,8 @@ public class Checkers_JavaJawas {
     public static int scoreX = 0;
     public static int scoreO = 0;
 
+    private static boolean CheckForWin;
+
     public static void main(String[] args) {
 
         //Declare the variables
@@ -376,11 +378,15 @@ public class Checkers_JavaJawas {
                     System.out.println("Invalid move, try again.");
                 }
 
-                if(CheckForWin().equals("RedWinner")){
-                    System.out.println("Congratulations Red! You won!");
-                    break;
-                } else if (CheckForWin().equals("BlackWInner")) {
-                    System.out.println("Congratulations Black! You won!");
+                CheckForWin(board, isRedTurn);
+                if(CheckForWin == true){
+                    // The current player has no legal moves, so the opponent wins
+                    System.out.println("No legal moves left. ");
+                    if (isRedTurn == true){
+                        println("Red Wins");
+                    } else {
+                        println("Black Wins");
+                    }
                     break;
                 }
             }
@@ -418,21 +424,27 @@ public class Checkers_JavaJawas {
         gameHistory.add(new ArrayList<>());
     }
 
-        public static String CheckForWin(){
-            String RedWin = "RedWinner";
-            String BlackWin = "BlackWinner";
-
-            for (char[] chars : board) {
-                for (int secondNum = 0; secondNum < board.length; secondNum++) {
-                    if (chars[secondNum] != 'R') {
-                        return BlackWin;
-                    } else if (chars[secondNum] != 'B') {
-                        return RedWin;
+        public static boolean CheckForWin(char[][] board, boolean isRedTurn){
+            // Iterate through the board to find the current player's pieces
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((isRedTurn && board[i][j] == RED) || (!isRedTurn && board[i][j] == BLACK)) {
+                        // Check for legal moves for the current piece
+                        for (int di = -1; di <= 1; di++) {
+                            for (int dj = -1; dj <= 1; dj++) {
+                                // Check if the move is valid
+                                if (isValidMove(i, j, i + di, j + dj)) {
+                                    return true; // At least one legal move is found
+                                }
+                            }
+                        }
                     }
                 }
             }
-            return null;
+            // No legal moves found
+            return false;
         }
+
         public static void playGameAI(){
     
             //TODO: MODIFY TEMPLATE CODE
