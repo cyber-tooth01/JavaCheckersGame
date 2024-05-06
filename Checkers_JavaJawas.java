@@ -183,9 +183,9 @@ public class Checkers_JavaJawas {
                     } else if (board[i][j] == 'B') {
                         System.out.print(BLACK_Color + board[i][j] + reset + " ");
                     } else if (board[i][j] == 'Q') {
-                        System.out.println(BLACK_Color + board[i][j] + reset + " ");
+                        System.out.print(BLACK_Color + board[i][j] + reset + " ");
                     } else if (board[i][j] == 'K') {
-                        System.out.println(RED_Color + board[i][j] + reset + " ");
+                        System.out.print(RED_Color + board[i][j] + reset + " ");
                     } else{
                         System.out.print(board[i][j] + " ");
                     }
