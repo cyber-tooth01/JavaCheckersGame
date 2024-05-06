@@ -90,7 +90,6 @@ public class Checkers_JavaJawas {
             //Menu of selections of game-modes
             println("\n-------- Menu -------");
             println("1. Versus a local player");
-            println("2. Versus an AI machine");
             println("3. Quit");
 
             //Let the user decide the option
@@ -341,30 +340,37 @@ public class Checkers_JavaJawas {
     
         public static void playGame(){
     
-            Scanner scanner = new Scanner(System.in);
-    
+            Scanner in = new Scanner(System.in);
+            
+            //Prompt for player names
+            println("\nInput Player 1 name: ");
+            String Player1 = in.next(); 
+
+            println("\nInput Player 2 name: ");
+            String Player2 = in.next(); 
+
             while (true) {
     
                 printBoard();
                 System.out.println("");
 
                 if (isRedTurn) {
-                    System.out.println("Red's turn");
+                    System.out.println("It's " + Player1 + "'s turn");
                 } else {
-                    System.out.println("Black's turn");
+                    System.out.println("It's " + Player2 + "'s turn");
                 }
 
                 System.out.println("Select X coordinate of the piece you want to move (0-7): ");
-                int col1 = scanner.nextInt();
+                int col1 = in.nextInt();
                 
                 System.out.println("Select Y coordinate of the piece you want to move (0-7): "); 
-                int row1 = scanner.nextInt();
+                int row1 = in.nextInt();
     
                 System.out.println("Select X coordinate of where you want to move (0-7): ");
-                int col2 = scanner.nextInt();
+                int col2 = in.nextInt();
                 
                 System.out.println("Select Y coordinate of where you want to move (0-7): "); 
-                int row2 = scanner.nextInt();
+                int row2 = in.nextInt();
                 
                 
 
@@ -380,10 +386,51 @@ public class Checkers_JavaJawas {
 
                 // Check for other win conditions
                 if (!hasPieces(RED)) {
-                    System.out.println("Black wins by capturing all of Red's pieces!");
+                    try {
+                        Thread.sleep(100);
+                        println("\\/$$$$$$$ \\/$$                     \\/$$             \\/$$      \\/$$\\ \\/$$                     \\/$$");
+                        Thread.sleep(100);
+                        println("| $$__  $$| $$                    | $$            | $$  \\/$ | $$|__\\/                    | $$");
+                        Thread.sleep(100);
+                        println("| $$  \\ $$| $$  \\/$$$$$$   \\/$$$$$$$$| $$   \\/$$      | $$ \\/$$$$| $$ \\/$$\\ \\/$$$$$$$$   \\/$$$$$$$$| $$");
+                        Thread.sleep(100);
+                        println("| $$$$$$$ | $$ |____  $$ \\/$$_____\\/| $$  \\/$$\\/      | $$\\/$$\\ $$ $$| $$| $$__  $$ \\/$$_____\\/| $$");
+                        Thread.sleep(100);
+                        println("| $$__  $$| $$  \\/$$$$$$$$| $$      | $$$$$$/       | $$$$_  $$$$| $$| $$  \\ $$|  $$$$$$ |__\\/");
+                        Thread.sleep(100);
+                        println("| $$  \\ $$| $$ \\/$$__  $$| $$      | $$_  $$       | $$$\\/\\ \\  $$$| $$| $$  | $$ \\____  $$    ");
+                        Thread.sleep(100);
+                        println("| $$$$$$$$\\/| $$|  $$$$$$$|  $$$$$$$| $$ \\  $$      | $$\\/   \\  $$| $$| $$  | $$ \\/$$$$$$$$\\/\\ \\/$$");
+                        Thread.sleep(100);
+                        println("|_______\\/\\ |__\\/\\ \\_______\\/\\ \\_______\\/|__\\/  \\__\\/      |__\\/     \\__\\/|__\\/|__\\/  |__\\/|_______\\/\\ |__\\/");
+                        Thread.sleep(100);
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    
                     break;
                 } else if (!hasPieces(BLACK)) {
-                    System.out.println("Red wins by capturing all of Black's pieces!");
+                    try {
+                        Thread.sleep(100);
+                        println("/$$$$$$$                  /$$       /$$      /$$ /$$                     /$$");
+                        Thread.sleep(100);
+                        println("| $$__  $$                | $$      | $$  /$ | $$|__/                    | $$");
+                        Thread.sleep(100);
+                        println("| $$ | $$  /$$$$$$   /$$$$$$$      | $$ /$$$| $$ /$$ /$$$$$$$   /$$$$$$$| $$");
+                        Thread.sleep(100);
+                        println("| $$$$$$$/ /$$__  $$ /$$__  $$      | $$/$$ $$ $$| $$| $$__  $$ /$$_____/| $$");
+                        Thread.sleep(100);
+                        println("| $$__  $$| $$$$$$$$| $$  | $$      | $$$$_  $$$$| $$| $$  \\ $$|  $$$$$$ |__/");
+                        Thread.sleep(100);
+                        println("| $$  \\ $$| $$_____/| $$  | $$      | $$$/ \\  $$$| $$| $$  | $$ \\____  $$");
+                        Thread.sleep(100);
+                        println("| $$  | $$|  $$$$$$$|  $$$$$$$      | $$/   \\  $$| $$| $$  | $$ /$$$$$$$/ /$$");
+                        Thread.sleep(100);
+                        println("|__/  |__/ \\_______/ \\_______/      |__/     \\__/|__/|__/  |__/|_______/ |__/");
+                        Thread.sleep(100);
+                    }catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }
