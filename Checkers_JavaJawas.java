@@ -47,6 +47,8 @@ public class Checkers_JavaJawas {
     public static int scoreX = 0;
     public static int scoreO = 0;
 
+    private static boolean CheckForWin;
+
     public static void main(String[] args) {
 
         //Declare the variables
@@ -377,13 +379,15 @@ public class Checkers_JavaJawas {
                     System.out.println("Invalid move, try again.");
                 }
 
-                if(CheckForWin().equals("RedWinner")){
-                    System.out.println("Congratulations Red! You won!");
+
+                // Check for other win conditions
+                if (!hasPieces(RED)) {
+                    System.out.println("Black wins by capturing all of Red's pieces!");
                     showGameHistory();
                     break;
-                } else if (CheckForWin().equals("BlackWinner")) {
-                    System.out.println("Congratulations Black! You won!");
-                    showGameHistory();
+                } else if (!hasPieces(BLACK)) {
+                    System.out.println("Red wins by capturing all of Black's pieces!");
+                    showGameHistory()
                     break;
                 }
             }
@@ -421,63 +425,60 @@ public class Checkers_JavaJawas {
         gameHistory.add(new ArrayList<>());
     }
 
-        public static String CheckForWin(){
-            String RedWin = "RedWinner";
-            String BlackWin = "BlackWinner";
-
-            for (char[] chars : board) {
-                for (int secondNum = 0; secondNum < board.length; secondNum++) {
-                    if (chars[secondNum] != 'R') {
-                        return BlackWin;
-                    } else if (chars[secondNum] != 'B') {
-                        return RedWin;
-                    }
+    public static boolean hasPieces(char piece) {
+        // Check if there are any pieces of the specified type left on the board
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (board[row][col] == piece) {
+                    return true;
                 }
             }
-            return null;
         }
-        public static void playGameAI(){
+        return false; // No pieces found
+    }
+
+    public static void playGameAI(){
+
+        //TODO: MODIFY TEMPLATE CODE
     
-            //TODO: MODIFY TEMPLATE CODE
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
     
-            Scanner scanner = new Scanner(System.in);
+            printBoard();
     
-            while (true) {
+            if (isRedTurn) {
+                System.out.println("Red's turn");
+            } else {
+                System.out.println("Black's turn");
+            }
     
-                printBoard();
+            System.out.print("Enter move (row1 col1 row2 col2): ");
+            int row1 = scanner.nextInt();
+            int col1 = scanner.nextInt();
+            int row2 = scanner.nextInt();
+            int col2 = scanner.nextInt();
     
-                if (isRedTurn) {
-                    System.out.println("Red's turn");
-                } else {
-                    System.out.println("Black's turn");
-                }
+            if (isValidMove(row1, col1, row2, col2)) {
     
-                System.out.print("Enter move (row1 col1 row2 col2): ");
-                int row1 = scanner.nextInt();
-                int col1 = scanner.nextInt();
-                int row2 = scanner.nextInt();
-                int col2 = scanner.nextInt();
-    
-                if (isValidMove(row1, col1, row2, col2)) {
-    
-                    makeMove(row1, col1, row2, col2);
+                makeMove(row1, col1, row2, col2);
                     
     
-                } else {
+            } else {
                     System.out.println("Invalid move, try again.");
-                }
             }
         }
-        public static void print (String msg){
-            System.out.print(msg);
-        }
+    }
+    public static void print (String msg){
+        System.out.print(msg);
+    }
     
-        //Shortcut to use println
-        public static void println (String msg){
-            System.out.println(msg);
-        }
+    //Shortcut to use println
+    public static void println (String msg){
+        System.out.println(msg);
+    }
     
         
-    }
+}
 
     
